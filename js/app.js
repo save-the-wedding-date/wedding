@@ -55,7 +55,7 @@ const util = (() => {
                 particleCount: 80,
                 spread: 70,
                 origin: { y: 0.75 },
-                colors: ["#735b2e", "#e8c84a", "#f2f0ea", "#8a9a6b"],
+                colors: ["#76724a", "#c4a35a", "#b2b9a8", "#e0d0c8"],
             });
         }
     };
