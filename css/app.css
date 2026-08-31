@@ -1,6 +1,6 @@
 :root {
     /* Sampled from Wedding-card.pdf — sage ground, olive-green type (not brown), blush florals */
-    --cream: #b2b9a8;
+    --cream: #b2baaa;
     --cream-deep: #a4ad98;
     --parchment: #c8cdc0;
     --bronze: #76724a;
@@ -39,6 +39,8 @@ html {
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    background-color: var(--cream);
+    min-height: 100%;
 }
 
 html::-webkit-scrollbar {
@@ -51,10 +53,66 @@ body {
     margin: 0;
     font-family: var(--sans);
     color: var(--text);
-    background: var(--cream);
+    background-color: transparent;
+    min-height: 100dvh;
+    isolation: isolate;
     overflow-x: hidden;
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+/*
+  Full-bleed plaster texture from the high-res invitation BG.
+  Cover fills every viewport without stretching.
+*/
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--cream);
+    background-image: url("../assets/images/bg-texture.jpg");
+    background-image: -webkit-image-set(
+        url("../assets/images/bg-texture.webp") type("image/webp"),
+        url("../assets/images/bg-texture.jpg") type("image/jpeg")
+    );
+    background-image: image-set(
+        url("../assets/images/bg-texture.webp") type("image/webp"),
+        url("../assets/images/bg-texture.jpg") type("image/jpeg")
+    );
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+/* Magnolia — one centered spray behind the invitation */
+.bg-flowers {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+}
+
+.bg-flower {
+    width: clamp(17.6rem, 79.2vmin, 44rem);
+    aspect-ratio: 1016 / 1083;
+    background-image: url("../assets/images/flower-overlay.webp");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+body:has(#welcome) main,
+body:has(#welcome) .nav-bottom {
+    visibility: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -99,7 +157,7 @@ button {
 
 /* Card cover: “Invitation” — Andasia 45pt Regular */
 .invitation-title {
-    margin: 0 0 0.35rem;
+    margin: 1rem 0 0.35rem;
     font-family: var(--script);
     font-weight: 400;
     font-style: normal;
@@ -130,11 +188,7 @@ button {
 
 .page-bg {
     width: 100%;
-    background-color: var(--cream);
-    background-image: url("../assets/images/main-bg.jpeg");
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: cover;
+    background: transparent;
 }
 
 .section--band {
@@ -214,37 +268,7 @@ button {
     padding: clamp(2rem, 5vh, 3.5rem) 1rem calc(var(--nav-h) + 1.5rem);
     position: relative;
     overflow: hidden;
-    background: var(--cream);
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    background-image: url("../assets/images/daffodils.jpeg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100% auto;
-    opacity: 0.62;
-    pointer-events: none;
-    animation: drift 14s ease-in-out infinite alternate;
-}
-
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(180deg, rgba(178, 185, 168, 0.2) 0%, rgba(178, 185, 168, 0.42) 48%, rgba(178, 185, 168, 0.82) 100%),
-        radial-gradient(circle at 18% 22%, rgba(224, 208, 200, 0.22), transparent 40%),
-        radial-gradient(circle at 82% 70%, rgba(168, 176, 160, 0.18), transparent 45%);
-    pointer-events: none;
-}
-
-@keyframes drift {
-    from { transform: scale(1); opacity: 0.55; }
-    to { transform: scale(1.04); opacity: 0.68; }
+    background: transparent;
 }
 
 .hero-inner {
@@ -561,7 +585,7 @@ button {
     font-size: clamp(0.9rem, 2.2vw, 1rem);
 }
 
-/* Welcome gate — full viewport */
+/* Welcome gate — shares the fixed body texture */
 .welcome {
     position: fixed;
     inset: 0;
@@ -573,30 +597,8 @@ button {
     place-items: center;
     text-align: center;
     padding: clamp(1rem, 3vh, 2rem) clamp(0.85rem, 3vw, 1.5rem);
-    background: var(--cream);
     overflow: hidden;
     transition: opacity 0.6s ease, visibility 0.6s ease;
-}
-
-.welcome::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    background-image: url("../assets/images/daffodils.jpeg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100% auto;
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-.welcome::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(178, 185, 168, 0.28) 0%, rgba(178, 185, 168, 0.48) 42%, rgba(178, 185, 168, 0.78) 100%);
-    pointer-events: none;
 }
 
 .welcome.is-hiding {
@@ -785,11 +787,6 @@ button {
 }
 
 @media (max-width: 485px) {
-    .hero::before,
-    .welcome::before {
-        background-size: cover;
-    }
-
     .actions {
         flex-direction: column;
         align-items: stretch;
