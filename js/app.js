@@ -35,9 +35,6 @@ const util = (() => {
 
     const openinvite = async (button) => {
         button.disabled = true;
-        document.documentElement.style.overflow = "";
-        document.body.style.overflow = "";
-        document.body.style.removeProperty("overflow-y");
 
         const welcome = document.getElementById("welcome");
         welcome.classList.add("is-hiding");
@@ -81,6 +78,7 @@ const util = (() => {
             return;
         }
 
+        const scroller = document.querySelector("main");
         const io = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -90,7 +88,7 @@ const util = (() => {
                     }
                 });
             },
-            { threshold: 0.18 }
+            { root: scroller || null, threshold: 0.18 }
         );
 
         nodes.forEach((n) => io.observe(n));
@@ -120,8 +118,15 @@ const audio = (() => {
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
+    const scroller = document.querySelector("main");
+    document.querySelector(".nav-bottom")?.addEventListener("click", (e) => {
+        const link = e.target.closest('a[href^="#"]');
+        if (!link || !scroller) return;
+        const target = document.getElementById(link.getAttribute("href").slice(1));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
 
     const modalEl = document.getElementById("image-modal");
     if (modalEl) {
