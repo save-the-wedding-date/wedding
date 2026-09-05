@@ -41,6 +41,8 @@ html {
     -ms-overflow-style: none;
     background-color: var(--cream);
     min-height: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 html::-webkit-scrollbar {
@@ -55,22 +57,31 @@ body {
     color: var(--text);
     background-color: transparent;
     min-height: 100dvh;
-    isolation: isolate;
-    overflow-x: hidden;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
 /*
-  Full-bleed plaster texture from the high-res invitation BG.
-  Cover fills every viewport without stretching.
+  Viewport-locked stage (not body::before).
+  iOS/Android: overflow on body + a fixed ::before with z-index -1
+  makes the texture scroll with momentum. A real fixed layer on
+  the document scroller stays put.
 */
-body::before {
-    content: "";
+.site-bg {
     position: fixed;
     inset: 0;
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
     pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.site-bg__texture {
+    position: absolute;
+    inset: 0;
     background-color: var(--cream);
     background-image: url("../assets/images/bg-texture.jpg");
     background-image: -webkit-image-set(
@@ -88,12 +99,10 @@ body::before {
 
 /* Magnolia — one centered spray behind the invitation */
 .bg-flowers {
-    position: fixed;
+    position: absolute;
     inset: 0;
-    z-index: 0;
     display: grid;
     place-items: center;
-    pointer-events: none;
 }
 
 .bg-flower {
@@ -103,6 +112,7 @@ body::before {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    opacity: 0.32;
 }
 
 main {
@@ -585,7 +595,7 @@ button {
     font-size: clamp(0.9rem, 2.2vw, 1rem);
 }
 
-/* Welcome gate — shares the fixed body texture */
+/* Welcome gate — texture + flower stay on the viewport-locked stage */
 .welcome {
     position: fixed;
     inset: 0;

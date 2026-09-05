@@ -37,7 +37,7 @@ const util = (() => {
         button.disabled = true;
         document.documentElement.style.overflow = "";
         document.body.style.overflow = "";
-        document.body.style.overflowY = "auto";
+        document.body.style.removeProperty("overflow-y");
 
         const welcome = document.getElementById("welcome");
         welcome.classList.add("is-hiding");
