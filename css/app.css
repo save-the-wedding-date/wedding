@@ -5,13 +5,13 @@
     --parchment: #c8cdc0;
     --bronze: #76724a;
     --bronze-deep: #5f5c3a;
-    --bronze-soft: #8a8658;
+    --bronze-soft: #7e7a52;
     --daffodil: #c4a35a;
     --daffodil-soft: #e0d8d0;
     --sage: #a8b0a0;
     --blush: #e0d0c8;
     --text: #76724a;
-    --muted: rgba(118, 114, 74, 0.72);
+    --muted: rgba(118, 114, 74, 0.83);
     --line: rgba(118, 114, 74, 0.32);
     /* PDF fonts: Forum, Andasia (script), Lovelace→Libre Baskerville, Amiri */
     --serif: "Forum", "Times New Roman", serif;
@@ -407,7 +407,7 @@ button {
 
 .scroll-hint {
     margin-top: clamp(1.25rem, 4vh, 2.25rem);
-    opacity: 0.75;
+    opacity: 0.86;
 }
 
 .mouse {
