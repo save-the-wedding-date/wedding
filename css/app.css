@@ -253,6 +253,14 @@ button {
     border: 0;
 }
 
+.divider {
+    width: min(36rem, calc(100% - 1.5rem));
+    height: 1px;
+    margin: 1.25rem auto;
+    border: 0;
+    background: linear-gradient(90deg, transparent, var(--bronze), transparent);
+}
+
 /* Bottom nav */
 .nav-bottom {
     position: fixed;
@@ -551,7 +559,6 @@ button {
 }
 
 .schedule article {
-    border-top: 1px solid var(--line);
     padding-top: 1rem;
     text-align: center;
 }
@@ -582,7 +589,6 @@ button {
 /* Footer */
 .site-footer {
     padding: 3rem 0 calc(var(--nav-h) + 2rem);
-    border-top: 1px solid var(--line);
     text-align: center;
     background: transparent;
 }
