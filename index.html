@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
     <link rel="preload" as="image" href="./assets/images/bg-texture.webp" type="image/webp">
     <link rel="preload" as="image" href="./assets/images/flower-overlay.webp" type="image/webp">
+    <link rel="preload" as="image" href="./assets/images/bg-couple.webp" type="image/webp">
     <link rel="stylesheet" href="./css/app.css">
 </head>
 <body>
@@ -171,7 +172,10 @@
     <div class="welcome" id="welcome">
         <div class="welcome-card">
             <div class="portrait">
-                <img src="./assets/images/bg-couple.png" alt="Couple">
+                <picture>
+                    <source srcset="./assets/images/bg-couple.webp" type="image/webp">
+                    <img src="./assets/images/bg-couple.png" alt="Hamza and Fatima">
+                </picture>
             </div>
             <p class="invitation-title" style="font-size: clamp(2.2rem, 7vw, 2.8125rem);">Invitation</p>
             <div class="name-stack">
